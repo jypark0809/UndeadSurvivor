@@ -5,9 +5,20 @@ using UnityEngine;
 
 public class ResourceManager
 {
+    public Dictionary<string, Sprite> _sprites = new Dictionary<string, Sprite>();
+
     public T Load<T>(string path) where T : Object
     {
-        if (typeof(T) == typeof(GameObject))
+        if (typeof(T) == typeof(Sprite))
+        {
+            if (_sprites.TryGetValue(path, out Sprite sprite))
+                return sprite as T;
+
+            Sprite sp = Resources.Load<Sprite>(path);
+            _sprites.Add(path, sp);
+            return sp as T;
+        }
+        else if (typeof(T) == typeof(GameObject))
         {
             string name = path;
             int index = name.LastIndexOf('/');

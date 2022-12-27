@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Define : MonoBehaviour
+public class Define
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum WorldObject
     {
-        
+        Unknown,
+        Player,
+        Enemy,
     }
 
-    // Update is called once per frame
-    void Update()
+    public enum Scene
     {
-        
+        Unknown,
+        Login,
+        Lobby,
+        Game,
     }
 }

@@ -1,17 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Managers : MonoBehaviour
 {
     static Managers s_instance;
     static Managers Instance { get { Init(); return s_instance; } }
 
+    #region Game Manager
+    GameManagerEx _game = new GameManagerEx();
+
+    public static GameManagerEx Game { get { return Instance._game; } }
+    #endregion
+
+    #region Core Manager
     PoolManager _pool = new PoolManager();
     ResourceManager _resource = new ResourceManager();
+    SceneManagerEx _scene = new SceneManagerEx();
 
     public static PoolManager Pool { get { return Instance._pool; } }
     public static ResourceManager Resource { get { return Instance._resource; } }
+    public static SceneManagerEx Scene { get { return Instance._scene; } }
+    #endregion
 
     void Start()
     {
@@ -39,5 +51,11 @@ public class Managers : MonoBehaviour
 
             s_instance._pool.Init();
         }
+    }
+
+    public static void Clear()
+    {
+        Scene.Clear();
+        Pool.Clear();
     }
 }

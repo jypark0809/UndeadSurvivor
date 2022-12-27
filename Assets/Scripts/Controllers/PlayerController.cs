@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : BaseController
 {
     [SerializeField]
     Vector2 _inputVec;
+
+    public Vector2 GetInputVec() { return _inputVec; }
 
     [SerializeField]
     float _speed;
@@ -19,6 +22,7 @@ public class PlayerController : MonoBehaviour
         _rigid = GetComponent<Rigidbody2D>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _anim = GetComponent<Animator>();
+        WorldObjectType = Define.WorldObject.Player;
     }
 
     void Update()
@@ -29,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // player movement
         Vector2 nextVec = _inputVec.normalized * _speed * Time.fixedDeltaTime;
         _rigid.MovePosition(_rigid.position + nextVec);
     }
